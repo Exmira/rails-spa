@@ -1,0 +1,26 @@
+
+<% frame_id = dom_id(post, "title_turbo_frame")%>
+<%= form_with model: post, data: { turbo_frame: frame_id}, style:"" do %>
+<div style="position: relative;">
+<%= turbo_frame_tag frame_id do %>
+  <%= link_to "", edit_post_path(post), style:"position: absolute; width: 100%; height: 100%;"%>
+  <h1>
+    <%= post.title %>
+  </h1>
+</div>
+<% end %>
+<% end %> 
+
+
+<% frame_id = dom_id(post, "body_turbo_frame")%>
+<%= form_with model: post, data: { turbo_frame: frame_id} do %>
+<div style="position: relative;">
+<%= turbo_frame_tag frame_id do %>
+  <%= link_to "", edit_post_path(post), style:"position: absolute; width: 100%; height: 100%;" %>
+ <p>
+    <%= post.body %>
+  </p>
+</div>
+<% end %>
+<% end %> 
+  <%= button_to "Destroy this post", post, method: :delete %>

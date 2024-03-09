@@ -1,0 +1,56 @@
+<%= turbo_frame_tag id="new_post" do %>
+
+<%= form_with(model: post) do |form| %>
+  <% if post.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_area :title %>
+  </div>
+
+  <div>
+    <%= form.label :body, style: "display: block" %>
+    <%= form.text_area :body %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<% end %>
+<% if post.persisted? %>
+  <%= form_with(model: post) do |form| %>
+<% frame_id = dom_id(post, "title_turbo_frame")%>
+<%= turbo_frame_tag frame_id do %>
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_area :title %>
+  </div>
+  <%= form.button "Save"%>
+  <%#= link_to "Cancel", post%>
+<% end %>
+<% end %> <% end %>
+
+
+<% if post.persisted? %>
+  <%= form_with(model: post) do |form| %>
+<% frame_id = dom_id(post, "body_turbo_frame")%>
+<%= turbo_frame_tag frame_id do %>
+  <div>
+    <%= form.label :body, style: "display: block" %>
+    <%= form.text_area :body %>
+  </div>
+  <%= form.button "Save"%>
+  <%#= link_to "Cancel", post%>
+<% end %>
+<% end %> <% end %>
